@@ -25,7 +25,7 @@ public class ShellSort {
         int[] mate = new int[offset]; // index offset array
         for (int count=0; count<C; count++) { // do C region compare-exchanges 
             for (int i=0; i<offset; i++) mate[i] = i;
-                permuteRandom(mate,rand); // comment this out to get a deterministic Shellsort
+            permuteRandom(mate,rand); // comment this out to get a deterministic Shellsort
             for (int i=0; i<offset; i++)
                 compareExchange(a, s+i, t+mate[i]);
         }
@@ -52,30 +52,31 @@ public class ShellSort {
 
     public static void main(String[] args) {
         // Read the dataset from dataset1.txt
-        int[] dataset = readDatasetFromFile("dataset3.txt");
+        int[] dataset = readDatasetFromFile("reversed_dataset3.txt");
 
         // Measure the starting time
         long startTime = System.currentTimeMillis();
+        long beforeUsedMem=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 
         // Sort the dataset using randomizedShellSort
         randomizedShellSort(dataset);
 
         // Measure the ending time
         long endTime = System.currentTimeMillis();
+        long afterUsedMem=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 
         // Calculate the running time
         long runningTime = endTime - startTime;
+        long actualMemUsed=(afterUsedMem-beforeUsedMem);
 
         // Write sorted dataset to a file
-        writeDatasetToFile("sorted_dataset3.txt", dataset);
+        // writeDatasetToFile("sorted_dataset3_shell.txt", dataset);
 
         // Print running time
         System.out.println("Running Time: " + runningTime + " milliseconds");
+        System.out.println("Memory Usage: "+actualMemUsed+ " bytes");
 
-        // Calculate memory space
-        Runtime runtime = Runtime.getRuntime();
-        long memory = runtime.totalMemory() - runtime.freeMemory();
-        System.out.println("Memory Space: " + memory + " bytes");
+
     }
 
     // Method to read dataset from a file and return it as an array of integers

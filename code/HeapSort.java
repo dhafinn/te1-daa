@@ -42,10 +42,11 @@ public class HeapSort {
 
     public static void main(String[] args) {
         // Read the dataset from dataset1.txt
-        int[] dataset = readDatasetFromFile("dataset3.txt");
+        int[] dataset = readDatasetFromFile("reversed_dataset3.txt");
 
         // Measure the starting time
         long startTime = System.currentTimeMillis();
+        long beforeMem=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 
         // Sort the dataset using Heap Sort
         HeapSort heapSort = new HeapSort();
@@ -53,20 +54,18 @@ public class HeapSort {
 
         // Measure the ending time
         long endTime = System.currentTimeMillis();
+        long afterMem=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 
         // Calculate the running time
         long runningTime = endTime - startTime;
+        long actualMemUsed=(afterMem-beforeMem);
 
         // Write sorted dataset to a file
-        writeDatasetToFile("sorted_dataset_heap3.txt", dataset);
+        // writeDatasetToFile("sorted_dataset_heap3.txt", dataset);
 
         // Print running time
         System.out.println("Running Time: " + runningTime + " milliseconds");
-        
-        // Calculate memory space
-        Runtime runtime = Runtime.getRuntime();
-        long memory = runtime.totalMemory() - runtime.freeMemory();
-        System.out.println("Memory Space: " + memory + " bytes");
+        System.out.println("Memory Usage: "+actualMemUsed+ " bytes");
     }
 
     // Method to read dataset from a file and return it as an array of integers
